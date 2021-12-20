@@ -1,0 +1,144 @@
+###User-Customer
+################################
+##Get all user
+POSt http://localhost:5000/api/user/getUsers
+
+################################
+##register
+POSt http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+    "fullName":"prevlife",
+    "phone":"1",
+    "password":"1234"
+}
+
+################################
+##login
+POSt http://localhost:5000/api/user/login
+Content-Type: application/json
+
+{
+    "phone":"1",
+    "password":"1234"
+}
+
+
+###Staff
+################################
+##Get all staff
+POSt http://localhost:5000/api/staff/getUsers
+
+################################
+##register
+POSt http://localhost:5000/api/staff/register
+Content-Type: application/json
+
+{
+    "fullName":"prevlife",
+    "phone":"1",
+    "password":"1234",
+    "role":""
+}
+################################
+##login
+POSt http://localhost:5000/api/staff/login
+Content-Type: application/json
+
+{
+    "phone":"4",
+    "password":"1234"
+}
+
+
+
+################################
+################################
+##Products
+GET http://localhost:5000/api/product/getproducts
+################################
+##Create new product
+POSt http://localhost:5000/api/product/create
+Content-Type: application/json
+
+{
+    "nameProduct":"first product",
+    "priceProduct":"",
+    "imageProduct":"first url image product",
+    "description":{
+        "brand":"first brand",
+        "category":"first category",
+        "cpu":"first cpu",
+        "ram":"first ram",
+        "battery":"first battery"
+    }
+}
+
+################################
+##Update post
+POST http://localhost:5000/api/product/update/61c048a16415aa87740c684e
+Content-Type: application/json
+
+{
+    "nameProduct":"second product",
+    "priceProduct":1511,
+    "description":{
+        "ram":"prevRAM"
+    }
+}
+
+################################
+##find product by ID
+Get http://localhost:5000/api/product/find/61c048a16415aa87740c684e
+
+################################
+##delete product
+POST http://localhost:5000/api/product/delete/61c0524f8ed92b2dd5b2429d
+
+################################
+##getall favourite
+GET http://localhost:5000/api/favourite/getfavourites
+
+
+################################
+##get favourite by userId -> is phonenumber
+GET http://localhost:5000/api/favourite/
+Content-Type: application/json
+
+{
+    "userId": "2"
+}
+################################
+##post add favourite
+post http://localhost:5000/api/favourite/add
+Content-Type: application/json
+
+{
+    "userId":"2",
+    "productFavourite":"11"
+}
+
+###############################
+##post remove favourite
+post http://localhost:5000/api/favourite/remove
+Content-Type: application/json
+
+{
+    "userId":"2",
+    "productFavourite":"1"
+}
+
+
+################################
+
+##getall favourite
+GET http://localhost:5000/api/cart/getcarts
+################################
+##get favourite by userId -> is phonenumber
+GET http://localhost:5000/api/favourite/
+Content-Type: application/json
+
+{
+    "userId": "2"
+}

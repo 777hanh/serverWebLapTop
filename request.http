@@ -132,13 +132,42 @@ Content-Type: application/json
 
 ################################
 
-##getall favourite
+##getall cart
 GET http://localhost:5000/api/cart/getcarts
 ################################
-##get favourite by userId -> is phonenumber
-GET http://localhost:5000/api/favourite/
+##get cart by userId -> is phonenumber
+GET http://localhost:5000/api/cart/
 Content-Type: application/json
 
 {
     "userId": "2"
+}
+
+################################
+##post add product to cart
+post http://localhost:5000/api/cart/add
+Content-Type: application/json
+
+{
+    "userId":"1",
+    "productCart":"1",
+    "countProductCart": 4
+}
+
+################################
+##post remove product from cart
+post http://localhost:5000/api/cart/remove
+Content-Type: application/json
+
+{
+    "userId":"2",
+    "productCart":"1"
+}
+################################
+##post clear cart by userId
+POST http://localhost:5000/api/cart/clear
+Content-Type: application/json
+
+{
+    "userId":"2"
 }

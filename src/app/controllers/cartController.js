@@ -13,13 +13,13 @@ class CartController {
     //api/cart/getcarts
     async getAll(req, res) {
         await Cart.find({})
-            .then(cart => res.json({ success: true, message: 'nice (>.<)', carts:cart }))
+            .then(cart => res.json({ success: true, message: 'nice (>.<)', carts: cart }))
             .catch(err => res.json({ success: false, message: err.message }).status(400))
     }
 
     //get cart by userId
     async getCartByUser(req, res) {
-        await Cart.findOne({ userCart: req.body.userId })
+        await Cart.find({ userCart: req.body.userId })
             .then(cart => res.json({ success: true, message: 'nice (>.<)', cart }))
             .catch(err => res.json({ success: false, message: err.message }))
     }
@@ -28,60 +28,64 @@ class CartController {
     //add cart product
     //api/cart/add
     async addCart(req, res) {
-        // const { productCart } = req.body
-        // if (!productCart)
-        //     return res.json({ success: false, message: 'missing productCart' })
+        const { productCart } = req.body
+        if (!productCart)
+            return res.json({ success: false, message: 'missing productCart' })
 
-        // const cart = await Cart.findOne({ userCart: req.body.userId })
-        // //user is not already have a favourite list
-        // if (!cart) {
-        //     const newCart = new Cart({
-        //         userCart: req.body.userId,
-        //         productCart,
-        //     })
-        //     newCart.save()
-        //         .then(() => res.json({ success: true, message: 'Add new cart successfull (>.<)', newCart }))
-        //         .catch((err) => res.json({ success: false, message: err.message }))
-        //     // return res.send('nice')
-        //     return
-        // }
-        // //user is already have
-        // //check product is in the favorite list
-        // if (!cart.productCart.includes(productCart)) {
-        //     cart.productCart.push(productCart)
-        //     cart.save()
-        //     return res.json({ success: true, message: 'add favourites successfull (>.<)', cart })
-        // }
+        let cart = await Cart.findOne({ userCart: req.body.userId, productCart })
+        // //user is not already have a cart with this product
+        if (!cart) {
+            const newCart = new Cart({
+                userCart: req.body.userId,
+                countProductCart: req.body.countProductCart || 1,
+                productCart,
+            })
+            newCart.save()
+                .then(() => res.json({ success: true, message: 'Add new cart successfull (>.<)', newCart }))
+                .catch((err) => res.json({ success: false, message: err.message }))
+            // return res.send('nice')
+            return
+        }
 
-        // return res.json({ success: false, message: 'product is already in the favorite list' })
+        //update cart count product
+        // //user is already have cart with this product
+        if (!req.body.countProductCart) {
+            req.body.countProductCart = cart.countProductCart + 1
+        }
+        else { req.body.countProductCart = req.body.countProductCart + cart.countProductCart }
+        req.body.countProductCart = req.body.countProductCart < 0 ? 0 : req.body.countProductCart
+        const updateCart = req.body
+        // return res.json(updateCart)
+        Cart.findOneAndUpdate({ userCart: req.body.userId, productCart }, updateCart)
+            .then(() => res.json({ success: true, message: 'add product to cart successfully (>.<)', updateCart }))
+            .catch((err) => res.json({ success: false, message: err.message }))
 
     }
 
 
     //remove cart product
     //api/cart/remove
-    async removeFavourite(req, res) {
-        // const { productCart } = req.body
-        // if (!productCart)
-        //     return res.json({ success: false, message: 'missing productFavourite' })
+    async removeCart(req, res) {
+        const { productCart } = req.body
+        if (!productCart)
+            return res.json({ success: false, message: 'missing productFavourite' })
 
-        // const cart = await Cart.findOne({ userCart: req.body.userId })
-        // //user is not already have a favourite list
-        // if (!cart)
-        //     return res.json({ success: false, message: 'user have not favourite list' })
+        await Cart.findOneAndDelete({ userCart: req.body.userId, productCart })
+            .then((cart) => res.json({ success: true, message: 'delete successfully product from your cart', cart }))
+            .catch((err) => res.json({ success: false, message: err.message }))
+    }
 
-        // //user already have
-        // //check product is not in the favorite list
-        // if (!cart.productCart.includes(productCart))
-        //     return res.json({ success: false, message: 'the product is not in your favourite list' })
+    //clear cart 
+    //api/cart/clear
+    async clearCart(req, res) {
+        try {
+            await Cart.deleteMany({ userCart: req.body.userId })
+            .then(() => res.json({ success: true, message: 'clear cart successfully (>.<)', userCart: req.body.userId}))
+            .catch((err) => res.json({ success: false, message: err.message }))
+        } catch (error) {
+            return res.json({ success: false, message:error.message})
+        }
 
-        // //the product is in the favorite list
-        // cart.productCart = cart.productCart.filter(product => {
-        //     return product !== req.body.productCart
-        // })
-        // cart.save()
-        //     .then(() => res.json({ success: true, message: 'remove successfull (>.<)', favourite}))
-        //     .catch(err => res.json({ success: false, message: err.message }))
     }
 }
 

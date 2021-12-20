@@ -3,6 +3,7 @@ const cors = require ('cors')
 
 const db = require('./config/db/index')
 const route = require('./routes')
+require('dotenv').config({path:__dirname+'/.env'})
 
 const app = express()
 const PORT = process.env.PORT || 5000

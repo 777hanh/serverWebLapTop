@@ -1,7 +1,7 @@
 ###User-Customer
 ################################
 ##Get all user
-POSt http://localhost:5000/api/user/getUsers
+POSt http://localhost:5000/api/user/getusers
 
 ################################
 ##register

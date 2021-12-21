@@ -19,7 +19,7 @@ class FavouriteController {
 
     //get favourite by userId
     async getFavouriteByUser(req, res) {
-        await Favourite.findOne({ userFavourite: req.body.userId })
+        await Favourite.findOne({ userFavourite: req.userId })
             .then(favourite => res.json({ success: true, message: 'nice (>.<)', favourite }))
             .catch(err => res.json({ success: false, message: err.message }))
     }
@@ -32,11 +32,11 @@ class FavouriteController {
         if (!productFavourite)
             return res.json({ success: false, message: 'missing productFavourite' })
 
-        const favourite = await Favourite.findOne({ userFavourite: req.body.userId })
+        const favourite = await Favourite.findOne({ userFavourite: req.userId })
         //user is not already have a favourite list
         if (!favourite) {
             const newFavourite = new Favourite({
-                userFavourite: req.body.userId,
+                userFavourite: req.userId,
                 productFavourite,
             })
             newFavourite.save()
@@ -65,7 +65,7 @@ class FavouriteController {
         if (!productFavourite)
             return res.json({ success: false, message: 'missing productFavourite' })
 
-        const favourite = await Favourite.findOne({ userFavourite: req.body.userId })
+        const favourite = await Favourite.findOne({ userFavourite: req.userId })
         //user is not already have a favourite list
         if (!favourite)
             return res.json({ success: false, message: 'user have not favourite list' })

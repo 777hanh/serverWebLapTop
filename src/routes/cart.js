@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const cartController = require('../app/controllers/cartController')
 
-router.get('/getcarts', cartController.getAll)
-router.post('/add',cartController.addCart)
-router.post('/remove',cartController.removeCart)
-router.post('/clear', cartController.clearCart)
-router.get('/', cartController.getCartByUser)
+const cartController = require('../app/controllers/cartController')
+const verifyToken = require('./../middleware/auth')
+
+router.get('/getcarts', verifyToken, cartController.getAll)
+router.post('/add', verifyToken, cartController.addCart)
+router.post('/remove', verifyToken, cartController.removeCart)
+router.post('/clear', verifyToken, cartController.clearCart)
+router.get('/', verifyToken, cartController.getCartByUser)
 
 module.exports = router

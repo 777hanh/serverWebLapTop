@@ -19,7 +19,7 @@ class CartController {
 
     //get cart by userId
     async getCartByUser(req, res) {
-        await Cart.find({ userCart: req.body.userId })
+        await Cart.find({ userCart: req.userId })
             .then(cart => res.json({ success: true, message: 'nice (>.<)', cart }))
             .catch(err => res.json({ success: false, message: err.message }))
     }
@@ -32,11 +32,11 @@ class CartController {
         if (!productCart)
             return res.json({ success: false, message: 'missing productCart' })
 
-        let cart = await Cart.findOne({ userCart: req.body.userId, productCart })
+        let cart = await Cart.findOne({ userCart: req.userId, productCart })
         // //user is not already have a cart with this product
         if (!cart) {
             const newCart = new Cart({
-                userCart: req.body.userId,
+                userCart: req.userId,
                 countProductCart: req.body.countProductCart || 1,
                 productCart,
             })
@@ -56,7 +56,7 @@ class CartController {
         req.body.countProductCart = req.body.countProductCart < 0 ? 0 : req.body.countProductCart
         const updateCart = req.body
         // return res.json(updateCart)
-        Cart.findOneAndUpdate({ userCart: req.body.userId, productCart }, updateCart)
+        Cart.findOneAndUpdate({ userCart: req.userId, productCart }, updateCart)
             .then(() => res.json({ success: true, message: 'add product to cart successfully (>.<)', updateCart }))
             .catch((err) => res.json({ success: false, message: err.message }))
 
@@ -70,7 +70,7 @@ class CartController {
         if (!productCart)
             return res.json({ success: false, message: 'missing productFavourite' })
 
-        await Cart.findOneAndDelete({ userCart: req.body.userId, productCart })
+        await Cart.findOneAndDelete({ userCart: req.userId, productCart })
             .then((cart) => res.json({ success: true, message: 'delete successfully product from your cart', cart }))
             .catch((err) => res.json({ success: false, message: err.message }))
     }
@@ -79,8 +79,8 @@ class CartController {
     //api/cart/clear
     async clearCart(req, res) {
         try {
-            await Cart.deleteMany({ userCart: req.body.userId })
-            .then(() => res.json({ success: true, message: 'clear cart successfully (>.<)', userCart: req.body.userId}))
+            await Cart.deleteMany({ userCart: req.userId })
+            .then(() => res.json({ success: true, message: 'clear cart successfully (>.<)', userCart: req.userId}))
             .catch((err) => res.json({ success: false, message: err.message }))
         } catch (error) {
             return res.json({ success: false, message:error.message})

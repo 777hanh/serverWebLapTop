@@ -9,10 +9,17 @@ POSt http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-    "fullName":"prevlife",
-    "phone":"1",
+    "fullName":"3prevlife3",
+    "phone":"4",
     "password":"1234"
 }
+
+################################
+##check user
+POST http://localhost:5000/api/user/
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDA0MzAyNzF9.bWBwAkbjPW8X1nzNIUp-IJUGA4bY3J-hqmzE6Xii7SA
+
 
 ################################
 ##login
@@ -20,7 +27,7 @@ POSt http://localhost:5000/api/user/login
 Content-Type: application/json
 
 {
-    "phone":"1",
+    "phone":"2",
     "password":"1234"
 }
 
@@ -99,16 +106,16 @@ POST http://localhost:5000/api/product/delete/61c0524f8ed92b2dd5b2429d
 ################################
 ##getall favourite
 GET http://localhost:5000/api/favourite/getfavourites
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjQiLCJpYXQiOjE2NDAwNTE3MTB9.t6W4KoRjGLSntNt2HutpRrvtDTIp0K97NOwiWFxL31M
 
 
 ################################
 ##get favourite by userId -> is phonenumber
 GET http://localhost:5000/api/favourite/
 Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjEiLCJpYXQiOjE2NDAwNTIxMDR9.dy7G847_qxnvzQCTtTV4Cvz-3SRUUY79_B7IGUHNT_w
 
-{
-    "userId": "2"
-}
+
 ################################
 ##post add favourite
 post http://localhost:5000/api/favourite/add
@@ -138,10 +145,8 @@ GET http://localhost:5000/api/cart/getcarts
 ##get cart by userId -> is phonenumber
 GET http://localhost:5000/api/cart/
 Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDAwNTMzNTN9.gs8mnMtTTiaoNEVGc8gUHmDt1NzDJLxvCLVkpXxWHOs
 
-{
-    "userId": "2"
-}
 
 ################################
 ##post add product to cart

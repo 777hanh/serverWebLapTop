@@ -75,6 +75,17 @@ class UserController {
         }
     }
 
+    //Get user
+    //api/user/
+    async getUser(req,res){
+        try {
+            const user = await User.findOne({phone: req.userId}).select('-password')
+            res.json({success: true, user})
+        } catch (error) {
+            res.json({success:false, message:error.message}).status(400)
+        }
+    }
+
 }
 
 module.exports = new UserController

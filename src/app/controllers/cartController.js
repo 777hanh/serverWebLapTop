@@ -12,14 +12,14 @@ class CartController {
     //get all favourite
     //api/cart/getcarts
     async getAll(req, res) {
-        await Cart.find({})
+        await Cart.find({}).populate('productCart')
             .then(cart => res.json({ success: true, message: 'nice (>.<)', carts: cart }))
             .catch(err => res.json({ success: false, message: err.message }).status(400))
     }
 
     //get cart by userId
     async getCartByUser(req, res) {
-        await Cart.find({ userCart: req.userId })
+        await Cart.find({ userCart: req.userId }).populate('productCart')
             .then(cart => res.json({ success: true, message: 'nice (>.<)', cart }))
             .catch(err => res.json({ success: false, message: err.message }))
     }

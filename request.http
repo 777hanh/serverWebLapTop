@@ -141,32 +141,43 @@ Content-Type: application/json
 
 ##getall cart
 GET http://localhost:5000/api/cart/getcarts
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDAwNTMzNTN9.gs8mnMtTTiaoNEVGc8gUHmDt1NzDJLxvCLVkpXxWHOs
+Content-Type: application/json
 ################################
 ##get cart by userId -> is phonenumber
 GET http://localhost:5000/api/cart/
-Content-Type: application/json
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDAwNTMzNTN9.gs8mnMtTTiaoNEVGc8gUHmDt1NzDJLxvCLVkpXxWHOs
+Content-Type: application/json
 
 
 ################################
 ##post add product to cart
 post http://localhost:5000/api/cart/add
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDEwMzQ2NjR9.iQ-pz4JHR-Ek7BHmrflPYWl931FILwzzbsCWooYWvIg
 Content-Type: application/json
 
 {
-    "userId":"1",
-    "productCart":"1",
-    "countProductCart": 4
+    "productCart":"61c048a16415aa87740c684e",
+    "countProductCart": 1
 }
 
 ################################
 ##post remove product from cart
 post http://localhost:5000/api/cart/remove
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDEwMzQ2NjR9.iQ-pz4JHR-Ek7BHmrflPYWl931FILwzzbsCWooYWvIg
 Content-Type: application/json
 
 {
-    "userId":"2",
-    "productCart":"1"
+    "productCart":"61d03b948979b9b56ee25c8a"
+}
+################################
+##post remove product from cart
+post http://localhost:5000/api/cart/findbyid
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjIiLCJpYXQiOjE2NDEwMzQ2NjR9.iQ-pz4JHR-Ek7BHmrflPYWl931FILwzzbsCWooYWvIg
+Content-Type: application/json
+
+{
+    "productCart":"61cf1142112b68a4c1769e22"
 }
 ################################
 ##post clear cart by userId
